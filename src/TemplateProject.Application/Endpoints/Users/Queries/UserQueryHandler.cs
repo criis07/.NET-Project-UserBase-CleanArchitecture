@@ -24,9 +24,11 @@ namespace TemplateProject.Application.Endpoints.Users.Queries
             _mapper = mapper;
         }
 
-        public Task<EndpointResult<IEnumerable<UserViewModel>>> Handle(UserQuery request, CancellationToken cancellationToken)
+        public async Task<EndpointResult<IEnumerable<UserViewModel>>> Handle(UserQuery request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var users = await _userDataService.GetAllUsers();
+
+            return new EndpointResult<IEnumerable<UserViewModel>>(_mapper.Map<UserViewModel[]>(users));
         }
     }
 }

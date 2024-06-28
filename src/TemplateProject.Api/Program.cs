@@ -7,6 +7,8 @@ using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 using TemplateProject.Application.Interfaces.Persistence.DataServices.Users.Queries;
 using TemplateProject.Infrastructure.Persistence.DataServices.Users;
+using MySql.Data.MySqlClient;
+using TemplateProject.Infrastructure.Services;
 
 // Configure Services
 var builder = WebApplication.CreateBuilder(args);
@@ -31,6 +33,8 @@ builder.Services.AddApiVersioning(options =>
 
 builder.Services.AddScoped<IPrincipalService, PrincipalService>();
 
+builder.Services.AddSingleton(new MysqlConfigs(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddSingleton(new MySqlConnection(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<IUserDataService, UserDataService>();
 
 builder.Services.AddControllers();
