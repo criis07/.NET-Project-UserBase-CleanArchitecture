@@ -21,7 +21,7 @@ namespace TemplateProject.Api.Controllers
         }
 
         [HttpGet]
-        [Route("/")]
+        [Route("/users")]
         public async Task<ActionResult> GetUserAsync()
         {
             var request = new UserQuery(); // Crea una instancia por defecto de PeopleQuery
